@@ -6,14 +6,12 @@
 # Make  directory to upload the test results
 - name: Make Directory for results
   run: mkdir -p testResults
+- name: Run API Tests
+  run: newman run "Restful Booker BVT.postman_collection.json" -e Production.postman_environment.json -r htmlextra --reporter-htmlextra-export testResults
 
-
-  - name: Run API Tests
-        run: newman run "Restful Booker BVT.postman_collection.json" -e Production.postman_environment.json -r htmlextra --reporter-htmlextra-export testResults
-
-        #Upload the contents of Test Results directory to workspace
-        - name: Output the run Details
-          uses: actions/upload-artifact@v2
-          with:
-            name: RunReports
-            path: testResults
+# Upload the contents of Test Results directory to workspace
+- name: Output the run Details
+  uses: actions/upload-artifact@v2
+  with:
+    name: RunReports
+    path: testResults
